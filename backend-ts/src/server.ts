@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from './config/db.ts';
-import authRoutes from './routes/authRoutes.ts';
-import sweetRoutes from './routes/sweetRoutes.ts';
-import orderRoutes from './routes/orderRoutes.ts';
+import connectDB from "./config/db";
+import authRoutes from './routes/authRoutes';
+import sweetRoutes from './routes/sweetRoutes';
+import orderRoutes from './routes/orderRoutes';
 
 dotenv.config();
 
