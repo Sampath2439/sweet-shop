@@ -1,5 +1,5 @@
 import express from 'express';
-import Sweet from '../models/sweetModel.ts';
+import Sweet from '../models/sweetModel';
 
 // FIX: Explicitly use express.Request and express.Response to avoid conflicts with global types.
 export const getSweets = async (req: express.Request, res: express.Response) => {

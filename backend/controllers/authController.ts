@@ -1,5 +1,5 @@
 import express from 'express';
-import User from '../models/userModel.ts';
+import User from '../models/userModel';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 

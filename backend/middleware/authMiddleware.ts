@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import User from '../models/userModel.ts';
-import { Role } from '../../types.ts';
+import User from '../models/userModel';
+import { Role } from '../../types';
 
 interface JwtPayload {
   id: string;

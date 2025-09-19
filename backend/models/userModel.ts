@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Role } from '../../types.ts'; // Using frontend types for consistency
+import { Role } from '../../types'; // Using frontend types for consistency
 
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },

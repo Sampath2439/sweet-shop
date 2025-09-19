@@ -1,7 +1,7 @@
 import express from 'express';
-import Order from '../models/orderModel.ts';
-import User from '../models/userModel.ts';
-import Sweet from '../models/sweetModel.ts';
+import Order from '../models/orderModel';
+import User from '../models/userModel';
+import Sweet from '../models/sweetModel';
 import mongoose from 'mongoose';
 
 // Custom Request type to include user
