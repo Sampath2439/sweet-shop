@@ -6,7 +6,7 @@ import authRoutes from './routes/authRoutes';
 import sweetRoutes from './routes/sweetRoutes';
 import orderRoutes from './routes/orderRoutes';
 
-dotenv.config();
+dotenv.config({ path: '.env' });
 
 connectDB();
 

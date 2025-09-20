@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
 // FIX: Import 'exit' from 'process' to resolve TypeScript type error for process.exit.
 import { exit } from 'process';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '.env' });
 
 const connectDB = async () => {
     try {
-        const mongoUri = "mongodb+srv://sampath:Gnana2439@cluster0.4jny0lf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" ;
+        const mongoUri = process.env.MONGO_URI;
         if (!mongoUri) {
             throw new Error('MONGO_URI is not defined in environment variables');
         }
