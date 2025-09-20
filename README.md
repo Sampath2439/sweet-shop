@@ -58,3 +58,9 @@ A full-stack e-commerce application for buying and selling sweets.
 2.  Register a new account or log in with an existing account.
 3.  Browse the available sweets and add them to your cart.
 4.  Proceed to checkout and place your order.
+
+## My AI Usage
+
+*   **AI Tools Used:** AI Studio, Claude.
+*   **How I Used Them:** AI Studio was used for project boiler template generation. Claude was used for backend logic, suggesting the use of MVC architecture.
+*   **Reflection:** AI tools significantly accelerated the initial project setup and provided valuable architectural guidance, allowing for a more structured and efficient development process.
