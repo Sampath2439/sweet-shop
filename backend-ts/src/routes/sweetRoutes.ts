@@ -1,6 +1,6 @@
 import express from 'express';
-import { getSweets, addSweet, updateSweet, deleteSweet } from '../controllers/sweetController.ts';
-import { protect, admin } from '../middleware/authMiddleware.ts';
+import { getSweets, addSweet, updateSweet, deleteSweet } from '../controllers/sweetController';
+import { protect, admin } from '../middleware/authMiddleware';
 
 const router = express.Router();
 

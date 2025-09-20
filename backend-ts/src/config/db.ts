@@ -4,7 +4,7 @@ import { exit } from 'process';
 
 const connectDB = async () => {
     try {
-        const mongoUri = process.env.MONGO_URI;
+        const mongoUri = "mongodb+srv://sampath:Gnana2439@cluster0.4jny0lf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" ;
         if (!mongoUri) {
             throw new Error('MONGO_URI is not defined in environment variables');
         }

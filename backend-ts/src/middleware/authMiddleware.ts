@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload as DefaultJwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/userModel';
-import { Role } from '../../types';
+import { Role } from '../types';
 
-interface JwtPayload {
+interface JwtPayload extends DefaultJwtPayload {
   id: string;
   role: string;
 }
@@ -12,39 +12,42 @@ type AuthRequest = Request & {
   user?: { id: string; role: string };
 };
 
-// FIX: Explicitly use express types to avoid conflicts with global types.
-export const protect = async (req: AuthRequest, res: Response, next: NextFunction) => {  let token;
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-    try {
-      token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
-      
-      // Attach user to the request but without the password
-      const user = await User.findById(decoded.id).select('-password');
-      if (user) {
-        req.user = { id: user._id.toString(), role: user.role };
-        next();
-      } else {
-         res.status(401).json({ message: 'Not authorized, user not found' });
-      }
+export const protect = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  let token: string | undefined;
 
-    } catch (error) {
-      console.error(error);
-      res.status(401).json({ message: 'Not authorized, token failed' });
-    }
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
   }
 
   if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token' });
+    return res.status(401).json({ message: 'Not authorized, no token' });
+  }
+
+  try {
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      throw new Error('JWT_SECRET is not defined in environment variables');
+    }
+
+    const decoded = jwt.verify(token, secret) as JwtPayload;
+
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) {
+      return res.status(401).json({ message: 'Not authorized, user not found' });
+    }
+
+    req.user = { id: user._id.toString(), role: user.role };
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({ message: 'Not authorized, token failed' });
   }
 };
 
-
-// FIX: Explicitly use express types to avoid conflicts with global types.
 export const admin = (req: AuthRequest, res: Response, next: NextFunction) => {
-      if (req.user && req.user.role === Role.ADMIN) {
-        next();
-    } else {
-        res.status(403).json({ message: 'Not authorized as an admin' });
-    }
+  if (req.user && req.user.role === Role.ADMIN) {
+    next();
+  } else {
+    res.status(403).json({ message: 'Not authorized as an admin' });
+  }
 };

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Sweet as ISweet } from '../../types'; 
+import { Sweet as ISweet } from '../types'; 
 
 const sweetSchema = new mongoose.Schema<Omit<ISweet, 'id'>>({
     name: { type: String, required: true },
