@@ -4,7 +4,6 @@ import { Sweet } from '../types';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import Spinner from '../components/common/Spinner';
-import { generateSweetDescription } from '../services/geminiService';
 
 const SweetFormModal: React.FC<{
   sweet: Sweet | null;
@@ -40,10 +39,7 @@ const SweetFormModal: React.FC<{
         alert("Please enter a name and category first.");
         return;
     }
-    setIsGenerating(true);
-    const description = await generateSweetDescription(formData.name, formData.category);
-    setFormData(prev => ({ ...prev, description }));
-    setIsGenerating(false);
+    
   };
 
   return (
@@ -61,9 +57,7 @@ const SweetFormModal: React.FC<{
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-1">Description</label>
               <textarea name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full px-3 py-2 border border-neutral-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition" required></textarea>
-              <Button type="button" variant="secondary" onClick={handleGenerateDescription} disabled={isGenerating} className="mt-2 text-sm">
-                {isGenerating ? <Spinner/> : '✨ Generate with AI'}
-              </Button>
+              
             </div>
             <div className="flex justify-end gap-2 pt-4">
                 <Button type="button" onClick={onClose} className="bg-neutral-200 text-neutral-800 hover:bg-neutral-300">Cancel</Button>
